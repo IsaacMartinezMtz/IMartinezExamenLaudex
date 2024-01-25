@@ -1,0 +1,41 @@
+﻿@model ML.Tareas
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-lg-start">
+    <h2>Tarea</h2>
+    <h5>Ingrese los datos de la tarea</h5>
+</div>
+<hr />
+@using (Html.BeginForm("Form", "Tareas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(Model => Model.IdTareas)
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                @Html.LabelFor(model => Model.Titulo, new { @class = "hidden", })
+                @Html.TextBoxFor(model => Model.Titulo, new { @class = "form-control hidden" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => Model.Descripcion, new { @class = "hidden", })
+                @Html.TextBoxFor(model => Model.Descripcion, new { @class = "form-control hidden" })
+
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => Model.Fecha, new { @class = "hidden" })
+                @Html.TextBoxFor(model => Model.Fecha, new { @class = "form-control hidden", @type = "date" })
+            </div>
+            <div class="col">
+                @Html.LabelFor(model => Model.Estatus.IdEstatus, new { @class = "hidden" })
+                @Html.DropDownListFor(model => Model.Estatus.IdEstatus, new SelectList(Model.Estatus.Estatdos, "IdEstatus", "Nombre"), "Selecciona estado", new { @class = "form-select hidden mb-4" })
+            </div>
+        </div>
+
+    </div>
+    <div class="text-center ">
+        <button id="btnGuardar" class="btn btn-success" type="Submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        <a id="btnCancelar" class="btn btn-danger " href="@Url.Action("GetAll", "Tareas")"><i class="fa-solid fa-right-from-bracket"></i> Volver</a>
+    </div>
+}

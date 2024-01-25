@@ -1,0 +1,51 @@
+﻿@model ML.Tareas
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-lg-start">
+    <h2>Lista de Tareas</h2>
+</div>
+<hr />
+<center><a type="button" href="@Url.Action("Form", "Tareas")" class="btn btn-outline-success btn-lg w-25 p-3"><i class="fa-solid fa-plus"></i></a></center>
+<hr />
+<div class="row justify-content-center">
+    @foreach (ML.Tareas tarea in Model.TarealoList)
+    {
+
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem;">
+                    @if (tarea.Estatus.IdEstatus == 4)
+                    {
+                        <center><p class="card-img-top" alt="Card image cap"><i class="fa-solid fa-hourglass-start fa-2xl" style="color: #5e9edf;"></i></p></center>
+
+                    }
+                    else if (tarea.Estatus.IdEstatus == 1)
+                    {
+                        <center><p class="card-img-top" alt="Card image cap"><i class="fa-solid fa-hourglass-start fa-2xl" style="color: #1f9822;"></i></p></center>
+                    }
+                    else if (tarea.Estatus.IdEstatus == 2)
+                    {
+                        <center><p class="card-img-top" alt="Card image cap"><i class="fa-solid fa-hourglass-start fa-2xl" style="color: #e6b100;"></i></p></center>
+                    }
+                    else if (tarea.Estatus.IdEstatus == 3)
+                    {
+                        <center><p class="card-img-top" alt="Card image cap"><i class="fa-solid fa-hourglass-start fa-2xl" style="color: #b30000;"></i></p></center>
+                    }
+                    <p class="card-img-top" alt="Card image cap">
+                        <div class="card-body limited-text">
+                            <h5 class="card-title fs-1">@tarea.Titulo</h5>
+                            <p class="card-text ">@tarea.Descripcion</p>
+                            <h6>@tarea.Fecha.Value.ToShortDateString()</h6>
+                            <p class="card-text">
+                                <a href="@Url.Action("Delete","Tareas", new {IdTarea = tarea.IdTareas})" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
+                                <a href="@Url.Action("Form","Tareas", new {IdTarea = tarea.IdTareas})" class="btn btn-outline-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                            </p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

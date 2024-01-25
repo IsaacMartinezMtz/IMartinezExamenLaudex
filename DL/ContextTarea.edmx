@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TareasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estatus">
+          <Key>
+            <PropertyRef Name="IdEstatus" />
+          </Key>
+          <Property Name="IdEstatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Tareas">
+          <Key>
+            <PropertyRef Name="IdTarea" />
+          </Key>
+          <Property Name="IdTarea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="date" />
+          <Property Name="Estado" Type="int" />
+        </EntityType>
+        <Association Name="FK__Tareas__Estado__1273C1CD">
+          <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+          <End Role="Tareas" Type="Self.Tareas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estatus">
+              <PropertyRef Name="IdEstatus" />
+            </Principal>
+            <Dependent Role="Tareas">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddTareas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Titulo" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="FechaVencimiento" Type="date" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteTarea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTarea" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllEstatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllTareas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetByIdTareas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTarea" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateTarea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTarea" Type="int" Mode="In" />
+          <Parameter Name="Titulo" Type="varchar" Mode="In" />
+          <Parameter Name="Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="FechaVencimiento" Type="date" Mode="In" />
+          <Parameter Name="Estado" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="TareasModelStoreContainer">
+          <EntitySet Name="Estatus" EntityType="Self.Estatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tareas" EntityType="Self.Tareas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tareas__Estado__1273C1CD" Association="Self.FK__Tareas__Estado__1273C1CD">
+            <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Tareas" EntitySet="Tareas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TareasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estatu">
+          <Key>
+            <PropertyRef Name="IdEstatus" />
+          </Key>
+          <Property Name="IdEstatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tareas" Relationship="Self.FK__Tareas__Estado__1273C1CD" FromRole="Estatus" ToRole="Tareas" />
+        </EntityType>
+        <EntityType Name="Tarea">
+          <Key>
+            <PropertyRef Name="IdTarea" />
+          </Key>
+          <Property Name="IdTarea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="Int32" />
+          <NavigationProperty Name="Estatu" Relationship="Self.FK__Tareas__Estado__1273C1CD" FromRole="Tareas" ToRole="Estatus" />
+        </EntityType>
+        <Association Name="FK__Tareas__Estado__1273C1CD">
+          <End Role="Estatus" Type="Self.Estatu" Multiplicity="0..1" />
+          <End Role="Tareas" Type="Self.Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estatus">
+              <PropertyRef Name="IdEstatus" />
+            </Principal>
+            <Dependent Role="Tareas">
+              <PropertyRef Name="Estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TareasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estatus" EntityType="Self.Estatu" />
+          <EntitySet Name="Tareas" EntityType="Self.Tarea" />
+          <AssociationSet Name="FK__Tareas__Estado__1273C1CD" Association="Self.FK__Tareas__Estado__1273C1CD">
+            <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Tareas" EntitySet="Tareas" />
+          </AssociationSet>
+          <FunctionImport Name="AddTareas">
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="FechaVencimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteTarea">
+            <Parameter Name="IdTarea" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllEstatus" ReturnType="Collection(TareasModel.GetAllEstatus_Result)" />
+          <FunctionImport Name="GetAllTareas" ReturnType="Collection(TareasModel.GetAllTareas_Result)" />
+          <FunctionImport Name="GetByIdTareas" ReturnType="Collection(TareasModel.GetByIdTareas_Result)">
+            <Parameter Name="IdTarea" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateTarea">
+            <Parameter Name="IdTarea" Mode="In" Type="Int32" />
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="Descripcion" Mode="In" Type="String" />
+            <Parameter Name="FechaVencimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetAllEstatus_Result">
+          <Property Type="Int32" Name="IdEstatus" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="GetAllTareas_Result">
+          <Property Type="Int32" Name="IdTarea" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="FechaVencimiento" Nullable="true" />
+          <Property Type="Int32" Name="Estado" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="GetByIdTareas_Result">
+          <Property Type="Int32" Name="IdTarea" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="FechaVencimiento" Nullable="true" />
+          <Property Type="Int32" Name="Estado" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TareasModelStoreContainer" CdmEntityContainer="TareasEntities">
+          <EntitySetMapping Name="Estatus">
+            <EntityTypeMapping TypeName="TareasModel.Estatu">
+              <MappingFragment StoreEntitySet="Estatus">
+                <ScalarProperty Name="IdEstatus" ColumnName="IdEstatus" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tareas">
+            <EntityTypeMapping TypeName="TareasModel.Tarea">
+              <MappingFragment StoreEntitySet="Tareas">
+                <ScalarProperty Name="IdTarea" ColumnName="IdTarea" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddTareas" FunctionName="TareasModel.Store.AddTareas" />
+          <FunctionImportMapping FunctionImportName="DeleteTarea" FunctionName="TareasModel.Store.DeleteTarea" />
+          <FunctionImportMapping FunctionImportName="GetAllEstatus" FunctionName="TareasModel.Store.GetAllEstatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TareasModel.GetAllEstatus_Result">
+                <ScalarProperty Name="IdEstatus" ColumnName="IdEstatus" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllTareas" FunctionName="TareasModel.Store.GetAllTareas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TareasModel.GetAllTareas_Result">
+                <ScalarProperty Name="IdTarea" ColumnName="IdTarea" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetByIdTareas" FunctionName="TareasModel.Store.GetByIdTareas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TareasModel.GetByIdTareas_Result">
+                <ScalarProperty Name="IdTarea" ColumnName="IdTarea" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateTarea" FunctionName="TareasModel.Store.UpdateTarea" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
